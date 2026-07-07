@@ -19,3 +19,28 @@ Part 2 – Linux Server Configuration & DevOps: Install Docker, deploy container
 - Web Stack: 
     Nginx, PHP-FPM, Apache HTTP Server, Django, Gunicorn, MySQL
 
+# Deployment Guide
+
+The complete deployment guide is available in:
+    [docs/Infrastructure.md](../docs/Infrastructure.md)
+
+The guide covers:
+
+1. AWS Infrastructure
+1. Docker Installation
+1. Docker Networking
+1. MySQL Deployment
+1. Nginx Reverse Proxy
+1. PHP-FPM
+1. Apache
+1. Django Applications
+1. SSL Configuration
+1. Route 53
+1. GitHub Deployment
+1. Infrastructure Verification
+
+
+        Author
+
+Joph Mukendi
+
