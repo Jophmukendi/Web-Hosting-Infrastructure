@@ -70,12 +70,10 @@ The public subnet hosts resources that require Internet access, such as the EC2 
 Create the Public Subnet
 ```bash
 aws ec2 create-subnet \
-    --vpc-id vpc-xxxxxxxx \
+    --vpc-id vpc-xxxxxxxx \    # Replace vpc-xxxxxxxx with the VpcId created in Step 1.
     --cidr-block 10.0.1.0/24 \
     --availability-zone us-east-1a \
     --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=public-subnet}]'
-
-# Replace vpc-xxxxxxxx with the VpcId created in Step 1.
 ```
     
 Enable Automatic Public IP Assignment
@@ -134,8 +132,111 @@ Verify
 aws ec2 describe-route-tables
 ```
 
-Step 6 – Associate the Public Route Table
+### Step 6 – Associate the Public Route Table
+
+Associating the route table with the public subnet enables resources inside that subnet to use the routing rules previously configured. This allows the EC2 instance to communicate with the Internet.
+
+Run:
+```bash
+aws ec2 associate-route-table \
+    --route-table-id rtb-xxxxxxxxx \        # Replace rtb-0123456789abcdef0 with the RouteTableId created in Step 5.
+    --subnet-id subnet-0123456789abcdef0    # Replace subnet-0123456789abcdef0 with the Public SubnetId created in Step 3.
+```
+
+Verify
+```bash
+aws ec2 describe-route-tables
+```
+
+### Step 7 – Create a Security Group
+
+A Security Group acts as a virtual firewall that controls inbound and outbound traffic for the EC2 instance. This configuration allows secure SSH administration while permitting HTTP and HTTPS traffic for web applications.
+
+Create the Security Group
+```bash
+aws ec2 create-security-group \
+    --group-name web-server-sg \
+    --description "Security group for web server" \
+    --vpc-id vpc-xxxxxxxx     # Replace vpc-xxxxxxx with the VpcId created in Step 1.
+```
+
+Allow SSH
+```bash
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-xxxxxxxx \    # Replace sg-xxxxxxxxx with the Security Group ID returned above.
+    --protocol tcp \
+    --port 22 \
+    --cidr YOUR_PUBLIC_IP/32    # Replace YOUR_PUBLIC_IP with the public IP address allowed to connect via SSH.
+```
+
+Allow HTTPS
+```bash
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-xxxxxxxxx \   # Replace sg-xxxxxxxx with the Security Group ID created above.
+    --protocol tcp \
+    --port 443 \
+    --cidr 0.0.0.0/0
+```
+
+### Step 8 – Create an EC2 Key Pair
+
+An EC2 key pair provides secure SSH authentication to the Ubuntu server. The private key should be stored securely because it cannot be downloaded again after creation.
+
+Create the Key Pair
+```bash
+aws ec2 create-key-pair \
+    --key-name cloud-web-key \   # You can rename the key pair with your own name key pair name
+    --query "KeyMaterial" \
+    --output text > cloud-web-key.pem
+```
+
+Secure the Private Key
+
+This commandrestricts file permissions to ensure security. It makes the private key file readable only by the file owner and blocks all other access.
+
+```bash
+chmod 400 cloud-web-key.pem
+```
+
+### Step 9 – Launch the EC2 Instance
+
+Launch an Ubuntu EC2 instance inside the public subnet. This server will host Docker, Nginx, MySQL, PHP, Apache, and Django containers in the next section.
+
+Launch the EC2 Instance
+```bash
+aws ec2 run-instances \
+    --image-id ami-xxxxxxxxxxxxxxxxx \
+    --instance-type t3.micro \
+    --key-name cloud-web-key \
+    --security-group-ids sg-xxxxxxxxxxx \
+    --subnet-id subnet-xxxxxxxxxxx \
+    --associate-public-ip-address \
+    --count 1 \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=web-server}]'
+
+# Replace ami-xxxxxxxxxxxxxxxxx with the latest Ubuntu Server AMI available in the selected AWS Region.
+# Replace sg-xxxxxxxxxx with the Security Group ID created in Step 7.
+# Replace subnet-xxxxxxxxxxx with the Public SubnetId created in Step 3.
+```
+
+Example output
+
+    InstanceId: i-0123456789abcdef0
+
+Connect to the EC2 Instance
+
+After the instance reaches the Running state, connect to the server using SSH.
+
+```bash
+ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
+
+# Replace cloud-web-key.pem with the private key created in Step 8.
+# Replace EC2_PUBLIC_IP with the public IPv4 address assigned to the EC2 instance.
+```
 
 
+The AWS infrastructure has now been provisioned successfully. The Ubuntu EC2 instance is running inside a custom VPC with properly configured networking and security, providing a secure foundation for deploying containerized web applications.
+
+The next section, Part 2 – Linux Server Configuration and DevOps, focuses on installing Docker, configuring container networking, and deploying Nginx, MySQL, PHP, Apache, and Django services.
 
 
