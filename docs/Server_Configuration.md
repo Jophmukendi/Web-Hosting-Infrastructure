@@ -215,6 +215,55 @@ Exit;
 
 ### Step 14 – Deploy the Nginx Reverse Proxy
 
+Nginx serves as the entry point for all incoming HTTP and HTTPS requests. As a reverse proxy, it routes client requests to the appropriate backend container based on the requested domain or subdomain, allowing multiple web applications to share a single public IP address.
+
+Download the Nginx Image
+```bash
+docker pull nginx:latest
+```
+
+Create the Required Directories
+```bash
+sudo mkdir -p /var/www               # All web apps directory
+sudo mkdir -p /var/nginx/conf.d      # For Nginx config file
+sudo mkdir -p /var/nginx/logs        # for Nginx logs file
+```
+
+Deploy the Nginx Container
+```bash
+docker run -d \
+    --name nginx-proxy \
+    --network web-network \
+    --restart unless-stopped \
+    -p 80:80 \
+    -p 443:443 \
+    -v /var/www:/var/www \
+    -v /var/nginx/conf.d:/etc/nginx/conf.d \
+    -v /var/nginx/logs:/var/log/nginx \
+    nginx:latest
+```
+
+Verify the Container
+```bash
+docker ps
+```
+
+Expected output
+```
+CONTAINER ID     IMAGE          NAME
+xxxxxxxxxxxx     mysql:8.0      mysql-db
+xxxxxxxxxxxx     nginx:latest   nginx-proxy
+```
+
+Verify Nginx
+```bash
+docker logs nginx-proxy
+```
+
+### Step 15 – Deploy the PHP-FPM Container
+
+
+
 
 
 
