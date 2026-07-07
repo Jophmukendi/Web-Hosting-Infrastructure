@@ -38,7 +38,7 @@ The infrastructure follows several security best practices.
 # Deployment Guide
 
 The complete deployment guide is available in:
-    [docs/Infrastructure.md](docs/Infrastructure.md)
+    [docs/Infrastructure.md](/docs/Infrastructure.md)
 
 The guide covers:
 
