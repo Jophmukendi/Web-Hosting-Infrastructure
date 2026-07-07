@@ -8,25 +8,14 @@ This project demonstrates the design and deployment of a cloud-based web hosting
 The deployment is divided into two parts:
 
 Part 1 – AWS Infrastructure: Provision the VPC, subnets, Internet Gateway, route tables, security groups, and EC2 instance.
+
 Part 2 – Linux Server Configuration & DevOps: Install Docker, deploy containers, configure Nginx, MySQL, SSL, DNS, and GitHub deployment.
 
 # Technology Stack
-Cloud
-Amazon EC2
-Amazon VPC
-Route 53
-Internet Gateway
-Security Groups
-DevOps
-Docker
-Docker Networking
-Git
-GitHub
-Web Stack
-Nginx
-PHP-FPM
-Apache HTTP Server
-Django
-Gunicorn
-MySQL
+- Cloud:
+    Amazon EC2, Amazon VPC, Route 53, Internet Gateway, Security Groups
+- DevOps:
+    Docker, Docker Networking, Git, GitHub
+- Web Stack: 
+    Nginx, PHP-FPM, Apache HTTP Server, Django, Gunicorn, MySQL
 
