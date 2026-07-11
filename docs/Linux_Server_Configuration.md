@@ -68,6 +68,46 @@ The objectives of this project are to:
 
 ---
 
+## Deployment Workflow
+
+The Linux server is configured in the following order:
+
+1. Install Docker Engine
+2. Create a Docker Network
+3. Create Docker Volumes
+4. Deploy the MySQL Container
+5. Deploy the Nginx Reverse Proxy
+6. Deploy the PHP-FPM Container
+7. Deploy the Apache Container
+8. Deploy the Django Application Container
+
+---
+
+## Prerequisites
+
+Before beginning the server configuration, ensure the following requirements are met:
+
+- AWS infrastructure has been deployed successfully
+- Ubuntu EC2 instance is running
+- SSH access to the server is available
+- Docker is not already installed
+- Internet connectivity is available for downloading Docker images
+
+Connect to the server using SSH.
+
+```bash
+ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
+
+# Replace cloud-web-key.pem with the private key created during the AWS Infrastructure deployment.
+# Replace EC2_PUBLIC_IP with the public IPv4 address of the Ubuntu EC2 instance.
+```
+
+---
+
+> **Best Practice**
+>
+> During the server configuration process, record important information such as Docker network names, volume names, container names, application directories, and mounted paths in a text file (for example, `server-configuration.txt`). Maintaining a deployment record simplifies future administration, troubleshooting, and infrastructure updates.
+
 
 
 
