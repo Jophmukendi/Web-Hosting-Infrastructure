@@ -108,24 +108,14 @@ ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
 >
 > During the server configuration process, record important information such as Docker network names, volume names, container names, application directories, and mounted paths in a text file (for example, `server-configuration.txt`). Maintaining a deployment record simplifies future administration, troubleshooting, and infrastructure updates.
 
+---
+
+## Deployment Guide
+
+The following sections describe each server configuration step in detail.
 
 
-
-
-
-
-
-
-
-
-
-
-
-# Part 2 — Linux Server Configuration and DevOps
-
-After provisioning the AWS infrastructure, the next phase configures the Ubuntu server as a production-ready hosting platform. This section installs Docker, creates the container networking environment, provisions persistent storage, and deploys the MySQL database container that will support multiple web applications.
-
-### Step 10 – Install Docker Engine
+# Step 1 – Install Docker Engine
 
 Docker is a containerization platform that packages applications and their dependencies into isolated containers. Containerization simplifies application deployment, improves scalability, and allows multiple services to run independently while sharing the same operating system.
 
@@ -220,7 +210,7 @@ Hello from Docker!
 This message shows that your Docker installation appears to be working correctly.
 ```
 
-### Step 11 – Create the Docker Network
+# Step 2 – Create the Docker Network
 
 Docker networking enables containers to communicate securely without exposing internal services to the Internet. Creating a dedicated bridge network allows containers to communicate using container names instead of IP addresses, making the environment easier to manage and scale.
 
@@ -243,7 +233,7 @@ docker network inspect web-network
 
 The network will not contain any containers. As services are deployed, they will automatically join this network and communicate using Docker's built-in DNS.
 
-### Step 12 – Create Docker Volumes
+# Step 3 – Create Docker Volumes
 
 Docker volumes provide persistent storage that survives container removal or recreation. They are essential for preserving databases and application data across deployments and updates.
 
@@ -263,7 +253,7 @@ docker volume inspect mysql-data
 ```
 Note: Docker manages the storage location automatically. No additional configuration is required.
 
-### Step 13 – Deploy the MySQL Database Container
+# Step 4 – Deploy the MySQL Database Container
 
 The MySQL container provides centralized database services for all hosted web applications. By storing database files inside a Docker volume, data remains available even if the container is removed or upgraded.
 
@@ -336,7 +326,7 @@ Exit the MySQL console.
 Exit;
 ```
 
-### Step 14 – Deploy the Nginx Reverse Proxy
+# Step 5 – Deploy the Nginx Reverse Proxy
 
 Nginx serves as the entry point for all incoming HTTP and HTTPS requests. As a reverse proxy, it routes client requests to the appropriate backend container based on the requested domain or subdomain, allowing multiple web applications to share a single public IP address.
 
@@ -383,7 +373,7 @@ Verify Nginx
 docker logs nginx-proxy
 ```
 
-### Step 15 – Deploy the PHP-FPM Container
+# Step 6 – Deploy the PHP-FPM Container
 
 PHP-FPM (FastCGI Process Manager) processes PHP requests received from Nginx. Separating PHP execution from the web server follows modern DevOps practices and allows the application layer to scale independently.
 
@@ -428,7 +418,7 @@ Exit the container.
 exit
 ```
 
-### Step 16 – Deploy the Apache Container
+# Step 7 – Deploy the Apache Container
 Apache provides an additional web server for hosting legacy applications or static websites that do not require Nginx. Running Apache inside its own container allows different web technologies to coexist while remaining isolated.
 
 Download the Apache Image
@@ -464,7 +454,7 @@ curl http://localhost:8080
 
 The default Apache page should be returned successfully.
 
-### Step 17 – Deploy the Django Application Container
+# Step 8 – Deploy the Django Application Container
 
 Django applications run inside isolated Docker containers, allowing each application to be deployed, updated, and managed independently. Nginx forwards requests to the appropriate Django container based on the configured virtual host.
 
@@ -539,7 +529,7 @@ The output should confirm that all containers are connected to the same Docker b
 
 The application hosting platform has now been deployed successfully. The infrastructure includes a reverse proxy, database server, PHP runtime, Apache web server, and a Django application container, all connected through a dedicated Docker network. This modular architecture simplifies application deployment, maintenance, and scaling while following modern DevOps and containerization practices.
 
-### Step 18 – Configure Nginx Virtual Hosts
+# Step 9 – Configure Nginx Virtual Hosts
 
 Nginx virtual hosts allow multiple web applications to share the same server by routing requests based on the requested domain or subdomain. This configuration enables each application to have its own hostname while using a single Nginx reverse proxy.
 
@@ -618,7 +608,7 @@ docker exec nginx-proxy nginx -t
 docker exec nginx-proxy nginx -s reload
 ```
 
-### Step 19 – Configure SSL Certificates (Let's Encrypt)
+# Step 10 – Configure SSL Certificates (Let's Encrypt)
 
 SSL certificates encrypt communication between clients and the web server. Using Let's Encrypt provides trusted SSL/TLS certificates at no cost, allowing applications to be securely accessed over HTTPS.
 
@@ -674,7 +664,7 @@ dig portfolio.example.com
 
 The command should return the EC2 public IP address.
 
-### Step 21 – Configure GitHub Deployment
+# Step 11 – Configure GitHub Deployment
 GitHub provides version control for the application source code. After changes are pushed to GitHub from the development environment, the EC2 server retrieves the latest version using Git, simplifying deployments while maintaining a central source repository.
 
 Install Git
@@ -778,34 +768,5 @@ https://inventory.example.com
 ```
 
 Each application should load successfully.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
