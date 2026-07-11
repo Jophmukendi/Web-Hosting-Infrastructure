@@ -627,7 +627,7 @@ sudo certbot certonly \
     -d portfolio.example.com    # Replace portfolio.example.com with the domain configured in Step 18.
 ```
 
-> Note: Repeat the process (Generate an SSL Certificate) for each hosted domain or subdomain.
+> **Note:** Repeat the process (Generate an SSL Certificate) for each hosted domain or subdomain.
 
 Mount the Certificates into the Nginx Container
 ```bash
