@@ -330,5 +330,3 @@ ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
 ```
 
 The AWS infrastructure has now been provisioned successfully. The Ubuntu EC2 instance is running inside a custom VPC with properly configured networking and security, providing a secure foundation for deploying containerized web applications.
-
-
