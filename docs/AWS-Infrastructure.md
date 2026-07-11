@@ -27,7 +27,7 @@ The objectives of this project are to:
 ## Architecture
 
 <p align="center">
-    <img src="images/aws-infrastructure2.png" alt="AWS Infrastructure" width="90%">
+    <img src="images/aws-infrastructure2.png" alt="AWS Infrastructure" width="100%">
 </p>
 
 ---
