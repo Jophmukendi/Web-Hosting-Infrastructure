@@ -704,10 +704,11 @@ docker exec nginx-proxy nginx -t
 ```
 
 The output should indicate:
-```bash
-syntax is ok
-test is successful
-```
+
+> syntax is ok
+> 
+> test is successful
+
 Verify MySQL
 ```bash
 docker exec -it mysql-db mysql -u root -p
