@@ -26,9 +26,7 @@ The objectives of this project are to:
 
 ## Architecture
 
-<p align="center">
-    <img src="images/aws-infrastructure.png" alt="Linux Server Configuration" width="100%">
-</p>
+![Linux Server Configuration](../images/aws-infrastructure2.png)
 
 ---
 
