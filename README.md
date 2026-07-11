@@ -131,6 +131,31 @@ Web-Hosting-Infrastructure/
 
 ---
 
+## Author
+
+**Joseph Mukendi**  
+Cloud Computing & System Administration Engineer
+
+Joph Nexus is my personal platform where I showcase projects, technical documentation, and hands-on experience in cloud infrastructure, Linux administration, networking, DevOps, and software development.
+
+### Connect
+
+🌐 **Portfolio:** https://portfolio.jophnex.com/
+
+📧 **Email:** mukendijoph@gmail.com
+
+💼 **GitHub:** https://github.com/Jophmukendi
+
+💻 **LinkedIn:** https://www.linkedin.com/in/joph-mukendi-73833b90/
+
+---
+
+## About Joph Nexus
+
+**Joph Nexus** is a technology platform dedicated to designing and documenting real-world IT solutions. Its mission is to build practical projects that demonstrate modern cloud computing, networking, DevOps, cybersecurity, and software engineering practices through hands-on implementations and detailed technical documentation.
+
+---
+
 ## License
 
 This project is licensed under the **MIT License**.
