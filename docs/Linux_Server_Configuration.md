@@ -24,6 +24,51 @@ The objectives of this project are to:
 
 ---
 
+## Architecture
+
+<p align="center">
+    <img src="images/aws-infrastructure.png" alt="Linux Server Configuration" width="100%">
+</p>
+
+---
+
+## Technologies
+
+| Technology | Purpose |
+|------------|---------|
+| Ubuntu Server | Linux operating system |
+| Docker Engine | Container platform |
+| Docker Network | Internal communication between containers |
+| Docker Volumes | Persistent application and database storage |
+| Nginx | Reverse proxy and web server |
+| PHP-FPM | PHP application runtime |
+| Apache HTTP Server | Static and legacy web hosting |
+| Django | Python web application framework |
+| Gunicorn | WSGI application server |
+| MySQL | Relational database |
+
+---
+
+## Container Architecture
+
+```text
+                    Ubuntu Server
+                          │
+                    Docker Engine
+                          │
+                   Docker Bridge Network
+                          │
+      ┌──────────────┬──────────────┬──────────────┐
+      │              │              │              │
+  nginx-proxy    php-fpm      apache-web     django-app
+                          │
+                          │
+                     mysql-db
+```
+
+---
+
+
 
 
 
