@@ -52,10 +52,8 @@ The infrastructure follows a layered architecture:
 ---
 
 ## Architecture
+![Cloud Web Hosting Platform](images/aws-infrastructure.png)
 
-<p align="center">
-    <img src="images/cloud-topology.png" alt="Cloud Web Hosting Platform" width="100%">
-</p>
 
 The platform consists of:
 
