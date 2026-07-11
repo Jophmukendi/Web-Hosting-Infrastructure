@@ -1,3 +1,41 @@
+# Linux Server Configuration
+
+## Overview
+
+This project demonstrates the configuration of an Ubuntu Linux server for hosting modern containerized web applications. The server is prepared as a production-ready application host by installing Docker, configuring container networking, deploying infrastructure services, and creating the foundation required for hosting multiple web applications.
+
+The server configuration follows modern DevOps practices by isolating each service inside its own Docker container. Core infrastructure services—including Nginx, MySQL, PHP-FPM, Apache, and Django—communicate through a dedicated Docker network while remaining independently deployable and maintainable.
+
+This document focuses exclusively on Linux server administration and Docker configuration. It assumes that the AWS infrastructure has already been provisioned and that an Ubuntu EC2 instance is available for configuration.
+
+---
+
+## Objectives
+
+The objectives of this project are to:
+
+- Update and secure the Ubuntu server
+- Install Docker Engine
+- Configure Docker networking
+- Create persistent Docker storage
+- Deploy infrastructure containers
+- Prepare the server for hosting multiple web applications
+- Build a modular and scalable container environment
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Part 2 — Linux Server Configuration and DevOps
 
 After provisioning the AWS infrastructure, the next phase configures the Ubuntu server as a production-ready hosting platform. This section installs Docker, creates the container networking environment, provisions persistent storage, and deploys the MySQL database container that will support multiple web applications.
