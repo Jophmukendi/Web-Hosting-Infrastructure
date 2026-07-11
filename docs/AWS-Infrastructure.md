@@ -24,36 +24,87 @@ The objectives of this project are to:
 
 ---
 
-## Architecture
+## AWS Services
 
-<p align="center">
-    <img src="images/aws-infrastructure2.png" alt="AWS Infrastructure" width="100%">
-</p>
+| Service | Purpose |
+|----------|---------|
+| Amazon VPC | Creates an isolated virtual network for AWS resources |
+| Public Subnet | Hosts Internet-facing resources such as the EC2 instance |
+| Private Subnet | Reserved for backend resources and future expansion |
+| Internet Gateway | Provides Internet access for the public subnet |
+| Route Table | Routes network traffic between the VPC and the Internet |
+| Security Group | Controls inbound and outbound traffic |
+| Amazon EC2 | Hosts the Ubuntu server used throughout the project |
 
 ---
 
+## Network Architecture
 
+```text
+                      Internet
+                         │
+                  Internet Gateway
+                         │
+                 Public Route Table
+                         │
+              ┌──────────────────────┐
+              │      AWS VPC         │
+              │     10.0.0.0/16      │
+              │                      │
+              │  Public Subnet       │
+              │   10.0.1.0/24        │
+              │        │             │
+              │      EC2 Ubuntu      │
+              │                      │
+              │  Private Subnet      │
+              │   10.0.2.0/24        │
+              └──────────────────────┘
+```
 
+---
 
+## Deployment Workflow
 
+The AWS infrastructure is deployed in the following order:
 
+1. Create a Virtual Private Cloud (VPC)
+2. Create an Internet Gateway
+3. Create a Public Subnet
+4. Create a Private Subnet
+5. Create a Public Route Table
+6. Associate the Public Route Table
+7. Create a Security Group
+8. Create an EC2 Key Pair
+9. Launch the Ubuntu EC2 Instance
 
+---
 
+## Prerequisites
 
+Before beginning the deployment, ensure the following requirements are met:
 
-This project demonstrates the deployment of a production-ready cloud infrastructure capable of hosting multiple web applications on AWS. The environment combines AWS networking services, Linux system administration, Docker containerization, and web technologies to create a scalable and secure hosting platform.
+- An active AWS account
+- AWS CLI installed
+- AWS CLI configured with valid credentials
+- Appropriate permissions to create AWS networking and EC2 resources
 
-The deployment is divided into two parts:
+Verify the AWS CLI installation:
 
-- Part 1 – AWS Infrastructure: Provision the cloud networking environment by creating the Virtual Private Cloud (VPC), public and private subnets, Internet Gateway, route tables, security groups, and an Ubuntu EC2 instance.
-- Part 2 – Linux Server Configuration and DevOps: Configure the Ubuntu server by installing Docker, creating Docker networking, deploying infrastructure containers (Nginx, MySQL, PHP, Apache, and Django), configuring SSL, DNS, and GitHub deployment.
+```bash
+aws --version
+```
 
-At the end of this guide, the infrastructure will be capable of hosting multiple web applications behind a single Nginx reverse proxy using Docker containers.
+Verify AWS authentication:
 
-<h1 align="center">Part 1 — AWS Infrastructure</h1>
-The first part focuses on building the AWS networking environment. Once completed, the EC2 instance will be ready for installing Docker and deploying web applications.
+```bash
+aws sts get-caller-identity
+```
 
-<h3>Step 1 – Create a Virtual Private Cloud (VPC)</h3>
+## Deployment Guide
+
+The deployment begins by creating the Virtual Private Cloud (VPC), which serves as the foundation of the entire AWS environment.
+
+# Step 1 – Create a Virtual Private Cloud (VPC)</h3>
 
 A Virtual Private Cloud (VPC) provides an isolated network where AWS resources can securely communicate. It serves as the foundation of the infrastructure by defining the IP address range, routing, and network boundaries.
 
