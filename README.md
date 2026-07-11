@@ -1,72 +1,138 @@
-# Web Hosting Infrastructure
-A production-ready cloud infrastructure built on Amazon Web Services (AWS) to host multiple web applications using Docker, Nginx, PHP-FPM, Apache, Django, and MySQL.
+# Cloud Web Hosting Platform on AWS
 
-# Project Overview
+A production-ready cloud infrastructure built on **Amazon Web Services (AWS)** for hosting multiple web applications using Docker containers. The platform combines AWS networking, Linux system administration, containerization, and modern web technologies to provide a scalable, secure, and maintainable hosting environment.
 
-This project showcases the deployment of a secure and scalable cloud infrastructure capable of hosting multiple web applications on a single AWS EC2 instance. The environment uses Docker containers to isolate services while Nginx acts as a reverse proxy to route traffic to PHP, Apache Server, and Django applications based on their domains or subdomains.
+---
 
-The infrastructure was designed as a hands-on DevOps project to demonstrate practical experience with AWS networking, Linux administration, Docker, web servers, databases, DNS, SSL, and deployment automation.
+## Project Overview
 
-The deployment is divided into two parts:
+This project demonstrates the design and implementation of a complete cloud-based web hosting platform capable of hosting multiple PHP and Django applications behind a single Nginx reverse proxy.
 
-Part 1 – AWS Infrastructure: Provision the VPC, subnets, Internet Gateway, route tables, security groups, and EC2 instance.
+The infrastructure follows a layered architecture:
 
-Part 2 – Linux Server Configuration & DevOps: Install Docker, deploy containers, configure Nginx, MySQL, SSL, DNS, and GitHub deployment.
+- **Cloud Infrastructure** provisions the networking and compute resources using AWS.
+- **Linux Server Configuration** prepares the Ubuntu server and Docker environment.
+- **GitHub Deployment** provides version control and a deployment workflow for application updates.
 
-# Technology Stack
-- Cloud:
-    Amazon EC2, Amazon VPC, Route 53, Internet Gateway, Security Groups.
-- DevOps:
-    Docker, Docker Networking, Git, GitHub.
-- Web Technologies: 
-    Nginx, PHP-FPM, Apache HTTP Server, Django, Gunicorn, MySQL.
-- Networking:
-    DNS, Reverse Proxy, HTTPS, SSL/TLS
+---
 
-# Security
-The infrastructure follows several security best practices.
+## Technology Stack
 
-- Custom VPC
-- Public and Private Subnets
+### Cloud
+
+- Amazon EC2
+- Amazon VPC
+- Public & Private Subnets
+- Internet Gateway
+- Route Tables
 - Security Groups
-- SSH Authentication using Key Pairs
-- HTTPS using Let's Encrypt
-- Reverse Proxy Architecture
-- Container Isolation
-- Persistent Database Storage
+- Amazon Route 53
 
-# Deployment Guide
+### Operating System
 
-The complete deployment guide is available in:
-    [docs/Infrastructure.md](/docs/Infrastructure.md)
+- Ubuntu Server LTS
 
-The guide covers:
+### DevOps
 
-1. AWS Infrastructure
-1. Docker Installation
-1. Docker Networking
-1. MySQL Deployment
-1. Nginx Reverse Proxy
-1. PHP-FPM
-1. Apache
-1. Django Applications
-1. SSL Configuration
-1. Route 53
-1. GitHub Deployment
-1. Infrastructure Verification
+- Docker
+- Docker Networking
+- Docker Volumes
+- Git
+- GitHub
 
-# Future Improvements
-- Multi-EC2 for High Availability Deployment
+### Web Technologies
+
+- Nginx
+- PHP-FPM
+- Apache HTTP Server
+- Django
+- Gunicorn
+- MySQL
+
+---
+
+## Architecture
+
+<p align="center">
+    <img src="images/cloud-topology.png" alt="Cloud Web Hosting Platform" width="100%">
+</p>
+
+The platform consists of:
+
+- AWS Virtual Private Cloud (VPC)
+- Ubuntu EC2 Server
+- Docker Engine
+- Docker Bridge Network
+- Nginx Reverse Proxy
+- PHP-FPM Container
+- Apache Container
+- Multiple Django Containers
+- MySQL Database Container
+- Route 53 DNS
+- GitHub Deployment Workflow
+
+---
+
+## Documentation
+
+The project documentation is organized into independent implementation guides.
+
+| Document | Description |
+|----------|-------------|
+| 📘 **[AWS Infrastructure](docs/AWS_Infrastructure.md)** | Deploy the AWS networking environment, including the VPC, subnets, Internet Gateway, Security Groups, and EC2 instance. |
+| 🐳 **[Linux Server Configuration](docs/Linux_Server_Configuration.md)** | Configure the Ubuntu server, install Docker, create Docker networking, and deploy the infrastructure containers. |
+| 🚀 **[GitHub Deployment](docs/GitHub_Deployment.md)** | Configure GitHub integration, SSH authentication, repository cloning, and application deployment. |
+
+---
+
+## Repository Structure
+
+```text
+Web-Hosting-Infrastructure/
+│
+├── README.md
+│
+├── docs/
+│   ├── AWS_Infrastructure.md
+│   ├── Linux_Server_Configuration.md
+│   ├── GitHub_Deployment.md
+│   └── images/
+│
+├── nginx/
+├── mysql/
+├── php/
+├── django/
+└── scripts/
+```
+
+---
+
+## Skills Demonstrated
+
+- AWS Cloud Infrastructure
+- Linux System Administration
+- Docker Containerization
+- Reverse Proxy Configuration
+- Network Design
+- Database Administration
+- Git & GitHub
+- Infrastructure Documentation
+- DevOps Best Practices
+
+---
+
+## Future Enhancements
+
 - GitHub Actions CI/CD
-- Kubernetes Migration
-- Terraform
+- HTTPS Automation
+- Monitoring & Alerting
+- Infrastructure as Code (Terraform)
+- Kubernetes Deployment
 - AWS Load Balancer
 - Auto Scaling
-- Centralized Monitoring & Logging
 
-# Author
+---
 
-Joseph Mukendi
+## License
 
-Cloud Computing & System Administration 
-
+This project is licensed under the **MIT License**.
