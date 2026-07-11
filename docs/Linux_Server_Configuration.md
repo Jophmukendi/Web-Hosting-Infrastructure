@@ -80,6 +80,9 @@ The Linux server is configured in the following order:
 6. Deploy the PHP-FPM Container
 7. Deploy the Apache Container
 8. Deploy the Django Application Container
+9. Configure Nginx Virtual Hosts
+10. Configure SSL Certificates (Let's Encrypt)
+11. Verify Applications
 
 ---
 
@@ -624,7 +627,7 @@ sudo certbot certonly \
     -d portfolio.example.com    # Replace portfolio.example.com with the domain configured in Step 18.
 ```
 
-Note: Repeat the process (Generate an SSL Certificate) for each hosted domain or subdomain.
+> Note: Repeat the process (Generate an SSL Certificate) for each hosted domain or subdomain.
 
 Mount the Certificates into the Nginx Container
 ```bash
@@ -664,56 +667,8 @@ dig portfolio.example.com
 
 The command should return the EC2 public IP address.
 
-# Step 11 – Configure GitHub Deployment
-GitHub provides version control for the application source code. After changes are pushed to GitHub from the development environment, the EC2 server retrieves the latest version using Git, simplifying deployments while maintaining a central source repository.
 
-Install Git
-```bash
-sudo apt install git -y
-```
-
-Generate an SSH Key
-```bash
-ssh-keygen -t ed25519 -C "github-deployment"
-```
-
-Press Enter to accept the default file location.
-
-Display the Public Key
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
-
-Copy the displayed key and add it to the GitHub repository as a Deploy Key.
-
-Clone the Repository
-```bash
-cd /var/www
-```
-```bash
-git clone git@github.com:username/repository.git
-```
-Replace:
-- username with the GitHub username or organization.
-- repository with the repository name.
-
-Deploy Updates
-
-Whenever changes are pushed to GitHub, update the application.
-
-```bash
-cd /var/www/repository
-```
-
-```bash
-git pull origin main
-```
-
-Replace:
-- repository with the cloned repository name
-- main with the repository's default branch if different.
-
-### Step 22 – Verify the Infrastructure
+# Step 11 – Verify the Infrastructure
 
 The final step verifies that the cloud infrastructure, Docker containers, networking, and hosted applications are functioning correctly. Performing these validation checks confirms that the environment is ready for production deployments.
 
