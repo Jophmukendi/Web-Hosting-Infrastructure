@@ -99,10 +99,13 @@ Verify AWS authentication:
 ```bash
 aws sts get-caller-identity
 ```
+---
 
 ## Deployment Guide
 
 The deployment begins by creating the Virtual Private Cloud (VPC), which serves as the foundation of the entire AWS environment.
+
+---
 
 # Step 1 – Create a Virtual Private Cloud (VPC)</h3>
 
@@ -135,7 +138,7 @@ Verify:
 aws ec2 describe-vpcs
 ```
 
-### Step 2 – Create an Internet Gateway
+# Step 2 – Create an Internet Gateway
 An Internet Gateway allows resources inside the VPC to communicate with the public Internet. The gateway will later be associated with the public subnet through a route table.
 
 Create the Internet Gateway
@@ -155,7 +158,7 @@ Verify:
 aws ec2 describe-internet-gateways
 ```
 
-### Step 3 – Create the Public Subnet
+# Step 3 – Create the Public Subnet
 
 The public subnet hosts resources that require Internet access, such as the EC2 web server. Instances launched in this subnet can receive public IP addresses and communicate with external clients.
 
@@ -182,7 +185,7 @@ Verify
 aws ec2 describe-subnets
 ```
 
-### Step 4 – Create the Private Subnet
+# Step 4 – Create the Private Subnet
 
 The private subnet hosts backend resources that should not be directly accessible from the Internet. This subnet is commonly used for databases, internal APIs, or future application servers.
 
@@ -200,7 +203,7 @@ Verify
 aws ec2 describe-subnets
 ```
 
-### Step 5 – Create the Public Route Table
+# Step 5 – Create the Public Route Table
 
 The route table determines how network traffic is routed within the VPC. This configuration allows the public subnet to send Internet-bound traffic through the Internet Gateway.
 
@@ -224,7 +227,7 @@ Verify
 aws ec2 describe-route-tables
 ```
 
-### Step 6 – Associate the Public Route Table
+# Step 6 – Associate the Public Route Table
 
 Associating the route table with the public subnet enables resources inside that subnet to use the routing rules previously configured. This allows the EC2 instance to communicate with the Internet.
 
@@ -240,7 +243,7 @@ Verify
 aws ec2 describe-route-tables
 ```
 
-### Step 7 – Create a Security Group
+# Step 7 – Create a Security Group
 
 A Security Group acts as a virtual firewall that controls inbound and outbound traffic for the EC2 instance. This configuration allows secure SSH administration while permitting HTTP and HTTPS traffic for web applications.
 
@@ -270,7 +273,7 @@ aws ec2 authorize-security-group-ingress \
     --cidr 0.0.0.0/0
 ```
 
-### Step 8 – Create an EC2 Key Pair
+# Step 8 – Create an EC2 Key Pair
 
 An EC2 key pair provides secure SSH authentication to the Ubuntu server. The private key should be stored securely because it cannot be downloaded again after creation.
 
@@ -290,7 +293,7 @@ This commandrestricts file permissions to ensure security. It makes the private 
 chmod 400 cloud-web-key.pem
 ```
 
-### Step 9 – Launch the EC2 Instance
+# Step 9 – Launch the EC2 Instance
 
 Launch an Ubuntu EC2 instance inside the public subnet. This server will host Docker, Nginx, MySQL, PHP, Apache, and Django containers in the next section.
 
@@ -326,9 +329,6 @@ ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
 # Replace EC2_PUBLIC_IP with the public IPv4 address assigned to the EC2 instance.
 ```
 
-
 The AWS infrastructure has now been provisioned successfully. The Ubuntu EC2 instance is running inside a custom VPC with properly configured networking and security, providing a secure foundation for deploying containerized web applications.
-
-The next section, Part 2 – Linux Server Configuration and DevOps, focuses on installing Docker, configuring container networking, and deploying Nginx, MySQL, PHP, Apache, and Django services.
 
 
