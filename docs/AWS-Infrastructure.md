@@ -126,6 +126,14 @@ Example output:
 VpcId: vpc-0123456789abcdef0
 ```
 
+### Best Practice
+
+During the deployment process, AWS generates unique resource identifiers (IDs) such as VPC IDs, Subnet IDs, Internet Gateway IDs, Route Table IDs, Security Group IDs, and EC2 Instance IDs. Instead of leaving these values in the terminal history, create a text file (for example, aws-resource-ids.txt) to record each resource as it is created.
+
+Maintaining a deployment record simplifies future commands, reduces typing errors, and provides a convenient reference for troubleshooting or modifying the infrastructure later.
+
+---
+
 Enable DNS Resolution:
 
 ```bash
