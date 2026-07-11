@@ -24,6 +24,22 @@ The objectives of this project are to:
 
 ---
 
+## Architecture
+
+<p align="center">
+    <img src="images/aws-infrastructure.png" alt="AWS Infrastructure" width="100%">
+</p>
+
+---
+
+
+
+
+
+
+
+
+
 
 This project demonstrates the deployment of a production-ready cloud infrastructure capable of hosting multiple web applications on AWS. The environment combines AWS networking services, Linux system administration, Docker containerization, and web technologies to create a scalable and secure hosting platform.
 
