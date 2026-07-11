@@ -1,4 +1,29 @@
-# Web Hosting Infrastructure on AWS
+# AWS Infrastructure
+
+## Overview
+
+This project demonstrates the design and deployment of a secure and scalable AWS cloud infrastructure for hosting modern web applications. The infrastructure provides the networking and compute resources required to support containerized services, databases, and web applications while following AWS networking and security best practices.
+
+The environment is built using Amazon Virtual Private Cloud (VPC), public and private subnets, an Internet Gateway, route tables, security groups, and an Ubuntu EC2 instance. These components establish a secure foundation for deploying Docker containers, reverse proxies, databases, and application services.
+
+This document focuses exclusively on provisioning the AWS infrastructure. After completing this guide, the Ubuntu EC2 instance will be ready for Linux server configuration and application deployment.
+
+---
+
+## Objectives
+
+The objectives of this project are to:
+
+- Build a custom Virtual Private Cloud (VPC)
+- Configure public and private subnets
+- Enable Internet connectivity through an Internet Gateway
+- Configure routing for public resources
+- Secure the infrastructure using Security Groups
+- Provision an Ubuntu EC2 instance
+- Prepare the environment for Docker-based application hosting
+
+---
+
 
 This project demonstrates the deployment of a production-ready cloud infrastructure capable of hosting multiple web applications on AWS. The environment combines AWS networking services, Linux system administration, Docker containerization, and web technologies to create a scalable and secure hosting platform.
 
