@@ -73,7 +73,7 @@ The platform consists of:
 
 ## Documentation
 
-The project documentation is organized into independent implementation guides.
+The project documentation is divided into independent implementation guides, each covering a specific component of the platform. To reproduce the complete infrastructure, follow the guides in order by clicking on each document below. Every guide contains the required explanations, commands, verification steps, and best practices for its respective implementation.
 
 | Document | Description |
 |----------|-------------|
@@ -142,17 +142,11 @@ Joph Nexus is my personal platform where I showcase projects, technical document
 
 🌐 **Portfolio:** https://portfolio.jophnex.com/
 
-📧 **Email:** mukendijoph@gmail.com
-
 💼 **GitHub:** https://github.com/Jophmukendi
 
+📧 **Email:** mukendijoph@gmail.com
+
 💻 **LinkedIn:** https://www.linkedin.com/in/joph-mukendi-73833b90/
-
----
-
-## About Joph Nexus
-
-**Joph Nexus** is a technology platform dedicated to designing and documenting real-world IT solutions. Its mission is to build practical projects that demonstrate modern cloud computing, networking, DevOps, cybersecurity, and software engineering practices through hands-on implementations and detailed technical documentation.
 
 ---
 
