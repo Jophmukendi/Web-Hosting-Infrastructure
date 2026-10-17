@@ -194,7 +194,7 @@ Verify the Docker service.
 ```bash
 sudo systemctl status docker
 
-sudo docker ps a
+sudo docker ps -a
 ```
 
 The service status should display active (running).
