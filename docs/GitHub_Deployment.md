@@ -2,55 +2,30 @@
 
 ## Overview
 
-This project demonstrates how to integrate a Linux server with GitHub to simplify application deployment and version control. The deployment workflow allows the server to securely retrieve the latest application source code from a GitHub repository using SSH authentication.
+This guide explains how to integrate a Linux server with GitHub to simplify application deployment and version control. The deployment workflow allows the server to securely retrieve the latest application source code from a GitHub repository using SSH authentication.
 
 Using GitHub as the central source repository provides version control, collaboration, and a repeatable deployment process. Once configured, application updates can be deployed by pulling the latest changes directly from the repository without manually transferring files to the server.
 
-This document focuses exclusively on configuring Git, establishing secure communication with GitHub, cloning repositories, and deploying application updates.
-
----
-
-## Objectives
-
-The objectives of this project are to:
-
-- Install and configure Git
-- Generate an SSH key pair
-- Connect the server to GitHub
-- Clone a remote repository
-- Deploy application updates
-- Maintain a secure deployment workflow
+This guide configures both the local development computer and the Ubuntu production server to communicate securely with GitHub.
 
 ---
 
 ## Deployment Workflow
 
 ```text
-Developer
-     │
-     ▼
-GitHub Repository
-     │
-     ▼
-Ubuntu Server
-     │
-     ▼
-Git Pull
-     │
-     ▼
-Updated Application
+Local Development Computer
+          │
+          │ git push
+          ▼
+     GitHub Repository
+          │
+          │ git pull
+          ▼
+     Ubuntu Server
+
 ```
 
----
-
-## Technologies
-
-| Technology | Purpose |
-|------------|---------|
-| Git | Version Control System |
-| GitHub | Source Code Repository |
-| SSH | Secure Authentication |
-| Ubuntu | Deployment Server |
+The local computer is responsible for developing, testing, committing, and pushing code. The Ubuntu server is responsible for pulling and deploying the code.
 
 ---
 
@@ -62,28 +37,178 @@ Before beginning this deployment, ensure the following requirements are met:
 - GitHub repository has been created
 - SSH access to the server is available
 
-Connect to the server.
+---
 
+# Part 1 – Configure the Local Development Computer
+
+The local computer is the development environment. We will configure Git and SSH so this computer can securely push source code to GitHub.
+
+## Step 1 – Install Git
+First, verify that Git is installed on the local computer. Git will track changes and communicate with GitHub.
+
+Run on the local computer:
 ```bash
-ssh -i cloud-web-key.pem ubuntu@EC2_PUBLIC_IP
+git --version
+```
+Expected result: git version 2.x.x
 
-# Replace cloud-web-key.pem with the SSH private key.
-# Replace EC2_PUBLIC_IP with the server's public IP address.
+If Git is not installed on macOS and Homebrew is available:
+```bash
+brew install git
 ```
 
----
+Verify again:
+```bash
+git --version
+```
 
-> **Best Practice**
->
-> Store deployment information such as the GitHub repository URL, branch name, deployment directory, and SSH key location in a text file (for example, `github-deployment.txt`). Keeping deployment information organized simplifies future updates and troubleshooting.
+## Step 2 – Configure Git Identity
+Configure the name and email Git will associate with commits created from this computer.
 
----
+Run on the local computer
+```bash
+git config --global user.name "User Name"
+```
 
-## Deployment Guide
+Configure the email:
+```bash
+git config --global user.email "user@gmail.com"
+```
 
-The following sections describe each deployment step. Every step includes a brief explanation, the required commands, and verification steps.
+Verify:
+```bash
+git config --list
+```
 
----
+Expected result: User Name and user@gmail.com
+
+## Step 3 – Check Existing SSH Keys
+
+Before creating a new SSH key, check the .ssh directory to see which keys already exist. This prevents overwriting an existing key and helps us choose a clear name for the new GitHub key.
+
+```bash
+ls -la ~/.ssh
+```
+
+For example, you might see:
+```bash
+authorized_keys
+id_ed25519
+id_ed25519.pub
+known_hosts
+```
+
+If id_ed25519 already exists, do not overwrite it because it may be used for another server or service.
+
+## Step 4 – Generate a Dedicated GitHub SSH Key
+Create a new SSH key specifically for GitHub development access. The -f option allows us to specify the filename instead of using the default id_ed25519.
+
+```bash
+ssh-keygen -t ed25519 -C "user@gmail.com" -f ~/.ssh/github_developer
+
+# You can change "github_developer" with your project name.
+```
+
+The command creates two files:
+```
+~/.ssh/github_developer               # Private key. Never share it.
+~/.ssh/github_developer.pub           # The public key. It's the one we will add to GitHub.
+```
+
+## Step 5 – Add the Key to the SSH Agent
+Add the new private key to the SSH agent so the local computer can use it for authentication.
+
+On macOS: 
+```bash
+ssh-add --apple-use-keychain ~/.ssh/github_developer
+```
+
+Verify:
+```bash
+ssh-add -l
+```
+
+The new key should appear in the list.
+
+## Step 6 – Configure SSH for GitHub
+Because we're no longer using the default id_ed25519 filename, explicitly tell SSH which key should be used when connecting to GitHub.
+
+Open the SSH configuration:
+```bash
+nano ~/.ssh/config
+```
+
+Add:
+```bash
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_developer
+    IdentitiesOnly yes
+```
+
+Save and exit.
+
+Set appropriate permissions:
+```bash
+chmod 600 ~/.ssh/config
+```
+
+Now when Git runs:
+```bash
+git push origin main
+```
+
+and the remote is:
+```
+git@github.com:username/repository_name.git
+```
+SSH knows to use: ~/.ssh/github_developer
+
+## Step 7 – Display the Public Key
+
+Display the public part of the dedicated GitHub key.
+
+```bash
+cat ~/.ssh/github_developer.pub
+```
+
+Copy the complete output and add it to:
+Log in to GitHub.
+
+Navigate to:
+
+```
+GitHub
+    ↓
+Settings
+    ↓
+SSH and GPG keys
+    ↓
+New SSH key
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Step 1 – Install Git
 
