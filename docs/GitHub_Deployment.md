@@ -209,7 +209,7 @@ cd ~/folder_name
 pwd
 ```
 
-##Step 10 – Clone the GitHub Repository
+## Step 10 – Clone the GitHub Repository
 Clone the existing GitHub repository to the local development computer. This creates a local working copy connected to the remote GitHub repository.
 
 ```
